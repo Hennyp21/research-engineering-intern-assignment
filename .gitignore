@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*$py.class
+# Virtual Environments
+.venv/
+venv/
+env/
+ai_server/.venv/
+.env
+data/raw/*.jsonl
+data/raw/*.json
+data/processed/*.csv
+data/processed/*.json
+!data/raw/.gitkeep
+!data/processed/.gitkeep

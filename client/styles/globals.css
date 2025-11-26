@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Plain CSS, no @apply, no utilities here */
+
+body {
+  background-color: #f9fafb; /* similar to bg-gray-50 */
+  color: #111827;            /* similar to text-gray-900 */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+a {
+  color: #4f46e5; /* indigo-ish */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.app-inner {
+  max-width: 72rem; /* ~max-w-6xl */
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
