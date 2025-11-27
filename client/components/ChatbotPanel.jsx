@@ -29,12 +29,12 @@ const ChatbotPanel = () => {
     setInput("");
     setLoading(true);
 
-    try {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ query: userMessage.content }),
-  });
+   const response = await fetch(`${API_BASE}/api/chat`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ query: userMessage.content }),
+});
+
 
       const data = await response.json();
 

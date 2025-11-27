@@ -34,7 +34,7 @@ export default function InvestigatePage() {
       if (filters.endDate) params.set("end", filters.endDate);
       if (filters.minUps) params.set("min_ups", filters.minUps);
 
-      const res = await fetch(`${API_URL}/api/posts?${params}`);
+      const res = await fetch(`${API_BASE}/api/posts?${params}`);
       const json = await res.json();
       
       // Safety check

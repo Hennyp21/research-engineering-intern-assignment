@@ -51,7 +51,7 @@ export default function HomePage() {
     setLoadingTS(true);
     try {
       const qs = buildParams();
-      const tsRes = await fetch(`${API_URL}/api/time-series?${qs}`);
+      const tsRes = await fetch(`${API_BASE}/api/time-series?${qs}`);
       const tsJson = await tsRes.json();
       
       if (Array.isArray(tsJson)) {
@@ -60,7 +60,7 @@ export default function HomePage() {
         setTimeSeries([]);
       }
 
-      const tlRes = await fetch(`${API_URL}/api/top-lists?${qs}`);
+      const tlRes = await fetch(`${API_BASE}/api/top-lists?${qs}`);
       const tlJson = await tlRes.json();
 
       setKpi({
@@ -86,7 +86,7 @@ export default function HomePage() {
   const loadTopicSeries = async () => {
     try {
       const qs = buildParams();
-      const res = await fetch(`${API_URL}/api/topic-time-series?${qs}`);
+      const res = await fetch(`${API_BASE}/api/topic-time-series?${qs}`);
       if (res.ok) {
         const json = await res.json();
         setTopicSeries(json || []);
@@ -111,7 +111,7 @@ export default function HomePage() {
         author: filters.author || null
       };
 
-      const res = await fetch(`${API_URL}/api/summarize`, {
+      const res = await fetch(`${API_BASE}/api/summarize`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)

@@ -31,7 +31,7 @@ export default function NetworkPage() {
       if (filters.keyword) params.set("keyword", filters.keyword);
       params.set("limit", "300");
 
-      const res = await fetch(`${API_URL}/api/network?${params.toString()}`);
+      const res = await fetch(`${API_BASE}/api/network?${params.toString()}`);
       if (!res.ok) {
         throw new Error(`Network API error: ${res.status}`);
       }
