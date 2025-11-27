@@ -15,6 +15,7 @@ load_dotenv()
 import openai
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from fastapi import Response
 
 # ...existing code...
 # local imports
@@ -39,7 +40,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-        "https://redditanalyzersimppl.vercel.app/"
+        "https://redditanalyzersimppl.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
