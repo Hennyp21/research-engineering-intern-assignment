@@ -723,6 +723,7 @@ async def chat_endpoint(req: ChatRequest):
 
     try:
         api_key = os.getenv("OPENAI_API_KEY")
+
         if not api_key:
             return {
                 "answer": "Error: OPENAI_API_KEY missing on the server. I found relevant posts but cannot generate a natural-language answer.",
