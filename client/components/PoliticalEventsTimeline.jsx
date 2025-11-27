@@ -79,22 +79,20 @@ const PoliticalEventsTimeline = () => {
         <div className="flex gap-4 min-w-max">
           {events.map((event, idx) => (
             <div key={idx} className="flex flex-col items-center min-w-[140px]">
+              
               {/* Event Card */}
               <div className="group relative">
-                {/* Icon Circle */}
                 <div className={`${event.color} w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-lg transform transition-transform duration-200 group-hover:scale-110 mb-3`}>
                   {event.icon}
                 </div>
-                
+
                 {/* Event Info */}
                 <div className="text-center">
-                  <div className="font-semibold text-sm text-slate-800 mb-1">
-                    {event.title}
-                  </div>
+                  <div className="font-semibold text-sm text-slate-800 mb-1">{event.title}</div>
                   <div className="text-xs text-slate-500 mb-2">
                     {new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                   </div>
-                  
+
                   {/* Hover Card */}
                   <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-200 absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 z-10">
                     <div className="bg-slate-900 text-white text-xs rounded-lg py-2 px-3 whitespace-nowrap shadow-xl">
@@ -104,11 +102,7 @@ const PoliticalEventsTimeline = () => {
                   </div>
                 </div>
               </div>
-              
-              {/* Connector Line */}
-              {idx < events.length - 1 && (
-                <div className="absolute top-7 left-[50%] w-[140px] h-0.5 bg-gradient-to-r from-slate-300 to-slate-200 transform translate-x-[10px]"></div>
-              )}
+
             </div>
           ))}
         </div>
