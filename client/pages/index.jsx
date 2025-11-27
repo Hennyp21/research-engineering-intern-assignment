@@ -7,7 +7,9 @@ import ChatbotPanel from "../components/ChatbotPanel";
 import AISummaryBox from "../components/AISummaryBox";
 import PoliticalEventsTimeline from "../components/PoliticalEventsTimeline";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
 
 export default function HomePage() {
   const [filters, setFilters] = useState({

@@ -1196,4 +1196,5 @@ def ai_summary(post_ids: List[str], prompt_template: str = "Summarize these post
 # -------------------------------------------------------------------
 
 if __name__ == "__main__":
-    uvicorn.run("ai_server.main:app", host="0.0.0.0", port=8000, reload=True)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("ai_server.main:app", host="0.0.0.0", port=port)

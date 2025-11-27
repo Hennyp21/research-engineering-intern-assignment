@@ -1,5 +1,7 @@
 // client/components/ChatbotPanel.jsx
 import React, { useState, useRef, useEffect } from "react";
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 const ChatbotPanel = () => {
   const [messages, setMessages] = useState([
@@ -28,11 +30,11 @@ const ChatbotPanel = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: userMessage.content }),
-      });
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: userMessage.content }),
+  });
 
       const data = await response.json();
 
