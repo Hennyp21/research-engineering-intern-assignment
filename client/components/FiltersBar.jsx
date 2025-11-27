@@ -3,9 +3,9 @@ import React from "react";
 
 /**
  * Props:
- *  - values: { subreddit, keyword, startDate, endDate, minUps }
- *  - onChange: (newValues) => void
- *  - onApply: () => void
+ * - values: { subreddit, author, keyword, startDate, endDate, minUps }
+ * - onChange: (newValues) => void
+ * - onApply: () => void
  */
 export default function FiltersBar({ values, onChange, onApply }) {
   const v = values || {};
@@ -22,6 +22,15 @@ export default function FiltersBar({ values, onChange, onApply }) {
         value={v.subreddit || ""}
         onChange={handleChange("subreddit")}
       />
+      
+      {/* --- NEW: Author Input --- */}
+      <InputField
+        label="Author"
+        placeholder="e.g. AutoModerator"
+        value={v.author || ""}
+        onChange={handleChange("author")}
+      />
+
       <InputField
         label="Keyword"
         placeholder="e.g. election"
@@ -49,7 +58,7 @@ export default function FiltersBar({ values, onChange, onApply }) {
       />
       <button
         onClick={onApply}
-        className="ml-auto px-4 py-2 rounded-md bg-indigo-600 text-white text-sm font-medium"
+        className="ml-auto px-4 py-2 rounded-md bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition"
       >
         Apply filters
       </button>
@@ -62,7 +71,7 @@ function InputField({ label, ...rest }) {
     <div className="flex flex-col text-xs">
       <label className="text-gray-500 mb-1">{label}</label>
       <input
-        className="border rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500"
+        className="border border-slate-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-32 sm:w-40"
         {...rest}
       />
     </div>

@@ -12,6 +12,11 @@ from collections import Counter
 from dotenv import load_dotenv
 from pydantic import BaseModel
 load_dotenv()
+import openai
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+# ...existing code...
 # local imports
 from services.data_loader import (
     load_posts,
@@ -213,6 +218,7 @@ def time_series(
     end: Optional[str] = Query(None),
     subreddit: Optional[str] = Query(None),
     keyword: Optional[str] = Query(None),
+    author: Optional[str] = Query(None),
 ):
     """
     Time series of post counts aggregated by freq (H/D/W/M...).
@@ -244,6 +250,8 @@ def time_series(
             end_ts = pd.to_datetime(end)
             df = df[df["created_utc"] <= end_ts]
         except: pass
+    if author:
+        df = df[df["author"].fillna("").str.lower() == author.lower()]
     if subreddit:
         df = df[df["subreddit"].fillna("").str.lower() == subreddit.lower()]
     if keyword:
@@ -270,87 +278,7 @@ def time_series(
         out.append({"date": str(row["date"]), "count": int(row["count"])})
     return out
 
-@app.get("/api/top-lists")
-def top_lists(
-    start: Optional[str] = Query(None),
-    end: Optional[str] = Query(None),
-    subreddit: Optional[str] = Query(None),
-    keyword: Optional[str] = Query(None),
-    per_list: int = Query(10, ge=1, le=100),
-):
-    """
-    KPIs + top lists (Communities, Authors, Domains) for current filter range.
-    """
-    # Safety check
-    if '_posts_df' not in globals() or _posts_df.empty:
-        return {"total_posts": 0, "avg_per_day": 0, "top_subreddits": []}
 
-    df = _posts_df.copy()
-    
-    # 1. Clean Dates
-    if "created_utc" in df.columns:
-        if 'ensure_datetime_series' in globals():
-            df["created_utc"] = ensure_datetime_series(df["created_utc"])
-        else:
-            df["created_utc"] = pd.to_datetime(df["created_utc"], errors="coerce")
-
-    # 2. Apply Filters 
-    if start:
-        try:
-            start_ts = pd.to_datetime(start)
-            df = df[df["created_utc"] >= start_ts]
-        except: pass
-    if end:
-        try:
-            end_ts = pd.to_datetime(end)
-            df = df[df["created_utc"] <= end_ts]
-        except: pass
-    if subreddit:
-        df = df[df["subreddit"].fillna("").str.lower() == subreddit.lower()]
-    if keyword:
-        kw = keyword.lower()
-        df = df[
-            (df["title"].fillna("").str.lower().str.contains(kw)) |
-            (df["selftext"].fillna("").str.lower().str.contains(kw))
-        ]
-
-    # 3. Calculate Stats
-    total_posts = int(len(df))
-
-    # Avg per day
-    avg_per_day = 0
-    if "created_utc" in df.columns and not df["created_utc"].dropna().empty:
-        min_date = df["created_utc"].min()
-        max_date = df["created_utc"].max()
-        days = max(1, (max_date - min_date).days or 1)
-        avg_per_day = round(total_posts / days, 2)
-
-    # Growth 7d
-    growth_7d = None
-    if "created_utc" in df.columns and not df["created_utc"].dropna().empty:
-        latest = df["created_utc"].max()
-        last7_start = latest - pd.Timedelta(days=7)
-        prev7_start = latest - pd.Timedelta(days=14)
-        last7_count = df[df["created_utc"] > last7_start].shape[0]
-        prev7_count = df[
-            (df["created_utc"] > prev7_start) & (df["created_utc"] <= last7_start)
-        ].shape[0]
-        if prev7_count > 0:
-            growth_7d = int(round(((last7_count - prev7_count) / prev7_count) * 100))
-
-    # 4. Generate Top Lists (This feeds the Pie Chart)
-    top_subreddits = top_values(df["subreddit"] if "subreddit" in df.columns else None, per_list)
-    top_authors = top_values(df["author"] if "author" in df.columns else None, per_list)
-    top_domains = top_values(df["domain"] if "domain" in df.columns else None, per_list)
-
-    return {
-        "total_posts": total_posts,
-        "avg_per_day": avg_per_day,
-        "growth_7d": growth_7d,
-        "top_subreddits": top_subreddits,
-        "top_authors": top_authors,
-        "top_domains": top_domains,
-    }
 # -------------------------------------------------------------------
 # Schemas
 # -------------------------------------------------------------------
@@ -371,139 +299,8 @@ class SummarizeRequest(BaseModel):
     subreddit: Optional[str] = None
     keyword: Optional[str] = None
     length: str = "short"
-import openai
-# --- REPLACE THE chat_endpoint FUNCTION IN ai_server/main.py ---
 
-# ai_server/main.py
 
-@app.post("/api/chat", response_model=ChatResponse)
-async def chat_endpoint(req: ChatRequest):
-    query = req.query
-    print(f"\n--- [DEBUG] Incoming Query: {query} ---")
-
-    # 1. Initialization Check
-    if '_vectorizer' not in globals() or _posts_df.empty:
-        return {"answer": "System is initializing.", "sources": []}
-
-    # 2. Vector Search (Find relevant posts)
-    query_vec = _vectorizer.transform([query])
-    sims = cosine_similarity(query_vec, _corpus_vectors).flatten()
-    top_indices = np.argsort(-sims)[:10]
-    relevant_posts = _posts_df.iloc[top_indices]
-    
-    if req.subreddit:
-        sub_mask = relevant_posts["subreddit"].str.lower() == req.subreddit.lower()
-        if sub_mask.any():
-            relevant_posts = relevant_posts[sub_mask]
-
-    # --- 3. LOOKUP: DOMAINS & AUTHORS ---
-    
-    context_data = ""
-    query_terms = set(re.findall(r'\w+', query.lower())) # Split query into words
-
-    # A. AUTHOR LOOKUP
-    if '_author_df' in globals() and not _author_df.empty:
-        for term in query_terms:
-            if len(term) < 3: continue
-            
-            # Exact match for authors is safer (case-insensitive)
-            match = _author_df[_author_df['author'].str.lower() == term]
-            
-            if not match.empty:
-                row = match.iloc[0]
-                # -- Calculate Author Score Inline --
-                score = 100
-                flags = []
-                
-                # Penalties
-                if row.get('duplicate_text_ratio', 0) > 0.5:
-                    score -= 30; flags.append("Repetitive content")
-                if row.get('percent_link_posts', 0) > 0.9:
-                    score -= 20; flags.append("High link ratio")
-                if row.get('avg_time_between_posts_sec', 999) < 120 and row.get('post_count', 0) > 5:
-                    score -= 40; flags.append("Bot-like frequency")
-                
-                score = max(0, min(100, score))
-                
-                line = (f"- Author: {row['author']} | Trust Score: {score}/100 | "
-                        f"Activity: {row['post_count']} posts | Flags: {', '.join(flags)}\n")
-                print(f"[FOUND AUTHOR] {line.strip()}")
-                context_data += line
-
-    # B. DOMAIN LOOKUP
-    if '_domain_scores_df' in globals() and not _domain_scores_df.empty:
-        for term in query_terms:
-            if len(term) < 3: continue
-            
-            # Partial match for domains (e.g. "bbc" matches "bbc.co.uk")
-            matches = _domain_scores_df[_domain_scores_df['domain'].str.contains(term, case=False, na=False)]
-            
-            for _, row in matches.head(2).iterrows():
-                d_name = row['domain']
-                raw_score = row.get('score', 0)
-                reasons = row.get('reasons', '')
-                
-                # Normalize Score (-2 to +2  ->  10 to 95)
-                norm_score = 50 + (raw_score * 15)
-                norm_score = int(max(10, min(95, norm_score)))
-                
-                line = f"- Domain: {d_name} | Trust Score: {norm_score}/100 | Notes: {reasons}\n"
-                if line not in context_data:
-                    print(f"[FOUND DOMAIN] {line.strip()}")
-                    context_data += line
-
-    # 4. Build Post Text Context
-    posts_context = ""
-    sources = []
-    for _, row in relevant_posts.iterrows():
-        title = row['title']
-        body = str(row['selftext'])[:200].replace("\n", " ")
-        sub = row['subreddit']
-        posts_context += f"- [r/{sub}] {title}: {body}\n"
-        sources.append({
-            "id": str(row.get("id", "")),
-            "title": title,
-            "subreddit": sub,
-            "url": str(row.get("url", ""))
-        })
-
-    # 5. LLM Call
-    system_prompt = (
-        "You are ANALYZER AI. Answer using the provided Data Context when relevant.\n"
-        "The Context includes 'Trust Scores' for specific Authors or Domains.\n"
-        "If the user asks about credibility, trust, or if a user is a bot, YOU MUST CITE these scores.\n"
-        "If the data section is empty, admit you don't know."
-    )
-    
-    user_prompt = (
-        f"Data & Trust Scores (High Priority):\n{context_data}\n\n"
-        f"Recent Reddit Posts:\n{posts_context}\n\n"
-        f"User Question: {query}"
-    )
-
-    try:
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            return {"answer": "Error: OPENAI_API_KEY missing.", "sources": sources}
-
-        client = openai.OpenAI(api_key=api_key)
-        completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
-            ],
-            temperature=0.3
-        )
-        answer = completion.choices[0].message.content
-    except Exception as e:
-        print(f"LLM Error: {e}")
-        answer = "I'm having trouble connecting to OpenAI."
-
-    return {
-        "answer": answer,
-        "sources": sources
-    }
 # -------------------------------------------------------------------
 # Basic endpoints
 # -------------------------------------------------------------------
@@ -603,210 +400,357 @@ def top_url_cascade():
 # CHATBOT ENDPOINT (The functionality you asked for)
 # -------------------------------------------------------------------
 
+# --- REPLACE THE chat_endpoint FUNCTION IN ai_server/main.py ---
+
+# ai_server/main.py
+
+# ---------------------------------------------------------
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat_endpoint(req: ChatRequest):
-    raw_query = req.query
-    query_lower = raw_query.lower().strip()
-    
-    # --- 1. INSTANT GREETING (No DB Search) ---
-    # Regex matches "hi", "hello", "hi bot" but not "high prices"
-    if re.match(r"^(hi|hello|hey|greetings|sup|yo)\b", query_lower):
+    """
+    Chatbot for SimPPL:
+    - Uses TF-IDF semantic search over posts
+    - Adds author + domain credibility info when relevant
+    - Adds basic time-series/global stats so it can answer:
+      * what is this dataset about?
+      * why is there a spike?
+      * which subs / domains dominate?
+    """
+    query = (req.query or "").strip()
+    if not query:
         return {
-            "answer": "Hello! I am your Reddit Data Analyst. I can help you find trends, check credibility scores (e.g., 'worst domains'), or summarize specific topics.",
-            "sources": []
+            "answer": "Ask me about trends, spikes, subreddits, authors, domains, or credibility in this Reddit dataset.",
+            "sources": [],
         }
 
-    # 2. Init Check
-    if '_vectorizer' not in globals() or _posts_df.empty:
-        return {"answer": "System is initializing. Please wait.", "sources": []}
+    print(f"\n--- [CHAT] Incoming Query: {query} ---")
+    q_lower = query.lower()
 
-    # --- 3. INTELLIGENT QUERY CLEANING ---
-    # If user asks "Why is there a spike in technology", we want to search for "technology", NOT "spike".
-    # We remove "analysis words" to find the actual content.
-    stop_words = ["why", "is", "there", "a", "spike", "in", "trend", "about", "suddenly", "happening", "with", "show", "me", "list", "the"]
-    search_terms = [w for w in query_lower.split() if w not in stop_words]
-    clean_query = " ".join(search_terms)
-    
-    if not clean_query: 
-        clean_query = raw_query # Fallback if everything was removed
+    # 0) Safety: data + vectorizer available?
+    if "_vectorizer" not in globals() or "_corpus_vectors" not in globals():
+        return {
+            "answer": "The analysis engine is still initializing. Try again in a moment.",
+            "sources": [],
+        }
+    if _posts_df.empty:
+        return {
+            "answer": "The underlying Reddit dataset is empty or failed to load.",
+            "sources": [],
+        }
 
-    # --- 4. BUILD CONTEXT (Trust + Content) ---
-    trust_context = ""
-    posts_context = ""
-    sources = []
+    df_all = _posts_df.copy()
 
-    # A. TRUST DATA (Domains/Authors)
-    if '_domain_scores_df' in globals() and not _domain_scores_df.empty:
-        # Ensure scores are numbers
-        df_scores = _domain_scores_df.copy()
-        df_scores['score'] = pd.to_numeric(df_scores['score'], errors='coerce').fillna(0)
-
-        # Logic: "Most Credible" / "Best"
-        if any(x in query_lower for x in ["most", "best", "highest", "top", "credible", "trust"]):
-            # Filter out self-posts to show real news sites
-            best = df_scores[~df_scores['domain'].str.startswith('self.', na=False)]
-            best = best.sort_values("score", ascending=False).head(5)
-            trust_context += "\n[TOP RATED DOMAINS]\n"
-            for _, row in best.iterrows():
-                s = int(max(10, min(95, 50 + (row['score'] * 15))))
-                trust_context += f"- {row['domain']} (Score: {s}/100)\n"
-
-        # Logic: "Least Credible" / "Worst"
-        elif any(x in query_lower for x in ["least", "worst", "lowest", "bad", "spam", "fake"]):
-            worst = df_scores.sort_values("score", ascending=True).head(5)
-            trust_context += "\n[LOWEST RATED DOMAINS]\n"
-            for _, row in worst.iterrows():
-                s = int(max(10, min(95, 50 + (row['score'] * 15))))
-                trust_context += f"- {row['domain']} (Score: {s}/100) - Flags: {row.get('reasons', 'Unknown')}\n"
-
-        # Logic: Specific Domain Check (e.g. "Is bbc reliable?")
-        for term in search_terms:
-            if len(term) < 3: continue
-            match = df_scores[df_scores['domain'].str.contains(term, case=False)]
-            if not match.empty:
-                row = match.iloc[0]
-                s = int(max(10, min(95, 50 + (row['score'] * 15))))
-                trust_context += f"\n[Domain Info: {row['domain']}] Score: {s}/100 ({row.get('reasons', '')})\n"
-
-    # B. POST CONTENT (Vector Search with Cleaned Query)
-    query_vec = _vectorizer.transform([clean_query])
-    sims = cosine_similarity(query_vec, _corpus_vectors).flatten()
-    top_indices = np.argsort(-sims)[:10]
-    relevant_posts = _posts_df.iloc[top_indices]
-    
-    # Filter posts by subreddit if UI filter is active
+    # Optional subreddit filter from UI
     if req.subreddit:
-        sub_mask = relevant_posts["subreddit"].str.lower() == req.subreddit.lower()
-        if sub_mask.any():
-            relevant_posts = relevant_posts[sub_mask]
+        sub = req.subreddit.lower()
+        df_all = df_all[df_all["subreddit"].fillna("").str.lower() == sub]
+
+    # ------------------------------------------------------------------
+    # 1) TF-IDF semantic retrieval: find relevant posts for the query
+    # ------------------------------------------------------------------
+    try:
+        query_vec = _vectorizer.transform([query])
+        sims = cosine_similarity(query_vec, _corpus_vectors).flatten()
+    except Exception as e:
+        print(f"[CHAT][ERROR] Vector search failed: {e}")
+        return {
+            "answer": "Vector search failed while trying to understand your query.",
+            "sources": [],
+        }
+
+    # Choose top-k posts (adaptive but small for speed)
+    k = min(25, len(_posts_df))
+    top_indices = np.argsort(-sims)[:k]
+    relevant_posts = _posts_df.iloc[top_indices].copy()
+
+    # If subreddit is selected, prefer posts from that sub
+    if req.subreddit:
+        mask = relevant_posts["subreddit"].fillna("").str.lower() == req.subreddit.lower()
+        if mask.any():
+            relevant_posts = relevant_posts[mask]
+
+    # ------------------------------------------------------------------
+    # 2) Credibility signals: authors + domains based on query terms
+    # ------------------------------------------------------------------
+    query_terms = set(re.findall(r"\w+", q_lower))
+    cred_lines: list[str] = []
+
+    # ---- Author trust lookup ----
+        # A. AUTHOR LOOKUP — continuous trust score
+    if "_author_df" in globals() and not _author_df.empty:
+        for term in query_terms:
+            if len(term) < 3:
+                continue
+
+            # Exact author match (case-insensitive)
+            matches = _author_df[
+                _author_df["author"].str.lower() == term
+            ]
+            if matches.empty:
+                continue
+
+            row = matches.iloc[0]
+
+            # ---- raw features with safe defaults ----
+            dup_ratio = float(row.get("duplicate_text_ratio", 0.0) or 0.0)          # 0..1+
+            link_ratio = float(row.get("percent_link_posts", 0.0) or 0.0)           # 0..1
+            avg_gap   = float(row.get("avg_time_between_posts_sec", 3600.0) or 3600.0)  # seconds
+            post_count = float(row.get("post_count", 0.0) or 0.0)
+
+            # ---- normalise each feature into [0,1] scores (1 = good, 0 = bad) ----
+
+            # 1) duplicate_text_ratio: 0 good, 1 bad
+            dup_ratio_clipped = max(0.0, min(dup_ratio, 1.0))
+            dup_score = 1.0 - dup_ratio_clipped
+
+            # 2) percent_link_posts:
+            #    <= 0.5  -> full score
+            #    0.5..1  -> linearly drop to 0
+            link_ratio_clipped = max(0.0, min(link_ratio, 1.0))
+            if link_ratio_clipped <= 0.5:
+                link_score = 1.0
+            else:
+                link_score = max(0.0, 1.0 - (link_ratio_clipped - 0.5) * 2.0)
+
+            # 3) avg_time_between_posts_sec:
+            #    <= 60s   -> very botty -> 0
+            #    >= 2h    -> human-ish  -> 1
+            if avg_gap <= 60:
+                freq_score = 0.0
+            elif avg_gap >= 7200:
+                freq_score = 1.0
+            else:
+                freq_score = (avg_gap - 60.0) / (7200.0 - 60.0)
+
+            # Extra penalty for huge + super-fast posters
+            volume_penalty = 0.0
+            if post_count > 500 and avg_gap < 600:
+                volume_penalty = 0.15
+
+            # ---- combine into final trust score ----
+            raw_score_0_1 = (
+                0.35 * dup_score +
+                0.35 * link_score +
+                0.30 * freq_score
+            )
+            raw_score_0_1 = max(0.0, min(1.0, raw_score_0_1 - volume_penalty))
+
+            trust_score = int(round(100 * raw_score_0_1))
+            trust_score = max(5, min(99, trust_score))  # clamp nicely
+
+            # ---- explanation flags ----
+            flags = []
+            if dup_ratio > 0.5:
+                flags.append(f"High duplicate text ({dup_ratio:.2f})")
+            if link_ratio > 0.8:
+                flags.append(f"Mostly link posts ({link_ratio:.2f})")
+            if avg_gap < 180:
+                flags.append(f"Very frequent posting (avg_gap={int(avg_gap)}s)")
+            if not flags:
+                flags.append("No major behavioural red flags")
+
+            cred_lines.append(
+                f"- Author `{row['author']}` → Trust Score ≈ {trust_score}/100 "
+                f"(posts: {int(post_count)}, notes: {', '.join(flags)})"
+            )
+
+
+    # ---- Domain trust lookup ----
+    if "_domain_scores_df" in globals() and not _domain_scores_df.empty:
+        for term in query_terms:
+            if len(term) < 3:
+                continue
+            # partial match (e.g. "bbc" -> "bbc.co.uk")
+            matches = _domain_scores_df[
+                _domain_scores_df["domain"].str.contains(term, case=False, na=False)
+            ].head(3)
+
+            for _, row in matches.iterrows():
+                d = str(row["domain"])
+                raw = row.get("score", 0) or 0  # assume 0..3 or similar
+                # map 0..3 → rough trust band
+                if raw <= 0:
+                    band = "risky / low-trust"
+                elif raw == 1:
+                    band = "mixed / uncertain"
+                elif raw == 2:
+                    band = "generally reliable"
+                else:
+                    band = "high-credibility source"
+                cred_lines.append(
+                    f"- Domain `{d}` → label: {band} (raw score: {raw})"
+                )
+
+    credibility_context = ""
+    if cred_lines:
+        credibility_context = "CREDIBILITY SIGNALS:\n" + "\n".join(cred_lines) + "\n"
+
+    # ------------------------------------------------------------------
+    # 3) Global / time-series style stats so it can answer spikes/trends
+    # ------------------------------------------------------------------
+    stats_context = ""
+    try:
+        df_stats = df_all.copy()
+        if "created_utc" in df_stats.columns:
+            df_stats["created_utc"] = ensure_datetime_series(df_stats["created_utc"])
+            df_stats = df_stats.dropna(subset=["created_utc"])
+
+            if not df_stats.empty:
+                # overall range
+                start_date = df_stats["created_utc"].min()
+                end_date = df_stats["created_utc"].max()
+                total_posts = len(df_stats)
+
+                # monthly counts (top 4 months)
+                df_stats["month"] = df_stats["created_utc"].dt.to_period("M")
+                monthly = (
+                    df_stats.groupby("month").size().reset_index(name="count")
+                    .sort_values("count", ascending=False)
+                    .head(4)
+                )
+                month_lines = [
+                    f"{str(row['month'])}: {int(row['count'])} posts"
+                    for _, row in monthly.iterrows()
+                ]
+                month_summary = "; ".join(month_lines)
+
+                # top subs & domains (quick sketch)
+                top_subs = (
+                    df_stats["subreddit"]
+                    .value_counts()
+                    .head(3)
+                    .to_dict()
+                )
+                sub_summary = ", ".join(
+                    [f"r/{k}: {v}" for k, v in top_subs.items()]
+                )
+
+                if "domain" in df_stats.columns:
+                    top_domains = (
+                        df_stats["domain"]
+                        .value_counts()
+                        .head(3)
+                        .to_dict()
+                    )
+                    dom_summary = ", ".join(
+                        [f"{k}: {v}" for k, v in top_domains.items()]
+                    )
+                else:
+                    dom_summary = "N/A"
+
+                stats_context = (
+                    "GLOBAL DATA SNAPSHOT:\n"
+                    f"- Time range: {start_date.date()} → {end_date.date()}\n"
+                    f"- Total posts in this slice: {total_posts}\n"
+                    f"- Busiest months (by posts): {month_summary}\n"
+                    f"- Top subreddits: {sub_summary}\n"
+                    f"- Top link domains: {dom_summary}\n"
+                )
+    except Exception as e:
+        print(f"[CHAT][WARN] Failed to build stats context: {e}")
+
+    # ------------------------------------------------------------------
+    # 4) Build post-level context for RAG
+    # ------------------------------------------------------------------
+    posts_context_lines = []
+    sources: list[Dict[str, Any]] = []
 
     for _, row in relevant_posts.iterrows():
-        title = row['title']
-        date = str(row['created_utc']).split(" ")[0] # Important for "Trend" questions
-        sub = row['subreddit']
-        posts_context += f"- [{date}] [r/{sub}] {title}\n"
-        sources.append({"id": str(row.get("id","")), "title": title, "subreddit": sub, "url": str(row.get("url",""))})
+        title = str(row.get("title", "")).strip()
+        body = str(row.get("selftext", "")).replace("\n", " ")[:220]
+        sub = str(row.get("subreddit", ""))
+        author = str(row.get("author", ""))
+        dom = str(row.get("domain", ""))
+        ups = row.get("ups", None)
+        sent = row.get("sentiment", None)
+        created = row.get("created_utc", "")
 
-    # --- 5. SYSTEM PROMPT (The Brain) ---
-    system_prompt = (
-        "You are SimPPL AI. You interpret Reddit data for a user.\n"
-        "DATA SOURCES:\n"
-        "1. [TRUST DATA]: Lists domains and their credibility scores (0-100). Use this for 'best/worst/credibility' questions.\n"
-        "2. [POSTS]: A list of recent post titles with dates. Use this for 'trends/spikes/topic' questions.\n\n"
-        "RULES:\n"
-        "- If asked about a 'spike' or 'trend', look at the [POSTS] dates and titles to explain WHAT is being discussed.\n"
-        "- If asked about 'credibility' or 'best domains', ONLY use the [TRUST DATA].\n"
-        "- If the contexts are empty, apologize and say you need more data."
-    )
-    
-    user_prompt = f"--- TRUST DATA ---\n{trust_context}\n\n--- POSTS ---\n{posts_context}\n\n--- USER QUESTION ---\n{raw_query}"
+        meta_bits = []
+        if author:
+            meta_bits.append(f"u/{author}")
+        if dom:
+            meta_bits.append(f"domain={dom}")
+        if ups is not None:
+            meta_bits.append(f"ups={int(ups)}")
+        if sent is not None:
+            meta_bits.append(f"sentiment={round(float(sent), 3)}")
+        if created not in ("", None):
+            meta_bits.append(f"date={str(created)[:10]}")
 
-    try:
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key: return {"answer": "API Key Missing", "sources": []}
-        
-        client = openai.OpenAI(api_key=api_key)
-        completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-            temperature=0.5
+        meta_str = " | ".join(meta_bits)
+
+        posts_context_lines.append(
+            f"- [r/{sub}] {title}\n  {body}\n  ({meta_str})"
         )
-        answer = completion.choices[0].message.content
-    except Exception as e:
-        print(f"LLM Error: {e}")
-        answer = "I'm having trouble connecting to OpenAI."
 
-    return {"answer": answer, "sources": sources}
-    # ---------------------------------------------------------
-    # PART B: TRUST DATA LOOKUP (For "Credibility", "Bots")
-    # ---------------------------------------------------------
-    trust_context = ""
-    
-    # 1. Ranking Queries ("Worst", "Best")
-    if '_domain_scores_df' in globals() and not _domain_scores_df.empty:
-        if any(x in query_lower for x in ["least", "worst", "lowest", "bad", "spam"]):
-            worst = _domain_scores_df.sort_values("score", ascending=True).head(5)
-            trust_context += "\n[System Data: Lowest Credibility Domains]\n"
-            for _, row in worst.iterrows():
-                s = int(max(10, min(95, 50 + (row.get('score', 0) * 15))))
-                trust_context += f"- {row['domain']} (Score: {s}/100)\n"
-        
-        elif any(x in query_lower for x in ["most", "best", "highest", "top", "good", "trust"]):
-            best = _domain_scores_df.sort_values("score", ascending=False).head(5)
-            trust_context += "\n[System Data: Highest Credibility Domains]\n"
-            for _, row in best.iterrows():
-                s = int(max(10, min(95, 50 + (row.get('score', 0) * 15))))
-                trust_context += f"- {row['domain']} (Score: {s}/100)\n"
+        sources.append(
+            {
+                "id": str(row.get("id", "")),
+                "title": title,
+                "subreddit": sub,
+                "url": str(row.get("url", "")),
+            }
+        )
 
-    # 2. Specific Lookup (Domains/Authors mentioned in query)
-    query_terms = set(re.findall(r'\w+', query_lower))
-    
-    # Check Authors
-    if '_author_df' in globals() and not _author_df.empty:
-        for term in query_terms:
-            if len(term) < 3: continue
-            match = _author_df[_author_df['author'].str.lower() == term]
-            if not match.empty:
-                row = match.iloc[0]
-                trust_context += f"\n[Author Data: {row['author']}]\n"
-                trust_context += f"- Post Count: {row['post_count']}\n"
-                trust_context += f"- Link Ratio: {round(row.get('percent_link_posts', 0)*100)}% (High links = sus)\n"
+    posts_context = "RELEVANT POSTS (sample):\n" + "\n".join(posts_context_lines)
 
-    # Check Domains
-    if '_domain_scores_df' in globals() and not _domain_scores_df.empty:
-        for term in query_terms:
-            if len(term) < 3: continue
-            match = _domain_scores_df[_domain_scores_df['domain'].str.contains(term, case=False)]
-            if not match.empty:
-                row = match.iloc[0]
-                s = int(max(10, min(95, 50 + (row.get('score', 0) * 15))))
-                trust_context += f"\n[Domain Data: {row['domain']}]\n- Credibility Score: {s}/100\n- Flags: {row.get('reasons', 'None')}\n"
-
-    # ---------------------------------------------------------
-    # PART C: THE FIX (Better Prompting)
-    # ---------------------------------------------------------
-    if not trust_context:
-        trust_context = "No specific credibility scores relevant to this query."
-
+    # ------------------------------------------------------------------
+    # 5) LLM call (OpenAI) with rich prompt
+    # ------------------------------------------------------------------
     system_prompt = (
-        "You are SimPPL AI. You have access to two types of data:\n"
-        "1. 'REDDIT POSTS': The actual content discussion.\n"
-        "2. 'TRUST DATA': Credibility scores for domains/authors.\n\n"
-        "INSTRUCTIONS:\n"
-        "- If the user asks about TRENDS, EVENTS, or SPIKES: Ignore the Trust Data and synthesize the 'REDDIT POSTS'.\n"
-        "- If the user asks about CREDIBILITY or TRUST: Use the 'TRUST DATA'.\n"
-        "- Never say 'I don't have data' if the 'REDDIT POSTS' section has content. Use that content to answer."
+        "You are ANALYZER AI, a data analyst for a Reddit dashboard called SimPPL.\n"
+        "You ONLY know what is in the context I give you. The context contains:\n"
+        "1) GLOBAL DATA SNAPSHOT: volume, timeframe, top subreddits, top domains.\n"
+        "2) CREDIBILITY SIGNALS: trust info for specific authors/domains.\n"
+        "3) RELEVANT POSTS: concrete examples with subreddit, author, domain, sentiment, date.\n\n"
+        "Your job:\n"
+        "- If the user asks 'what is this dataset about', describe main subreddits, time range, and themes.\n"
+        "- If they ask about 'spikes', 'trends', or 'months', reason from the GLOBAL DATA SNAPSHOT and posts.\n"
+        "- If they ask 'is X credible', use CREDIBILITY SIGNALS. Explain briefly why (flags, behaviour).\n"
+        "- If user asks 'hi', 'hello', 'who are you?' → simple friendly reply.\n"
+        "- Be concise but insightful. Prefer explanations like a data analyst, not a chatbot.\n"
+        "- Only say 'I don't know' when the context truly has no relevant information.\n"
     )
-    
+
     user_prompt = (
-        f"--- TRUST DATA ---\n{trust_context}\n\n"
-        f"--- REDDIT POSTS (Context) ---\n{posts_context}\n\n"
-        f"--- USER QUESTION ---\n{query}"
+        f"{stats_context}\n\n"
+        f"{credibility_context}\n"
+        f"{posts_context}\n\n"
+        f"USER QUESTION:\n{query}\n\n"
+        "Answer in 3–6 sentences. If helpful, mention which subreddits or domains drive your conclusion."
     )
 
     try:
         api_key = os.getenv("OPENAI_API_KEY")
         if not api_key:
-            return {"answer": "Error: OPENAI_API_KEY missing.", "sources": sources}
+            return {
+                "answer": "Error: OPENAI_API_KEY missing on the server. I found relevant posts but cannot generate a natural-language answer.",
+                "sources": sources,
+            }
 
         client = openai.OpenAI(api_key=api_key)
         completion = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
+                {"role": "user", "content": user_prompt},
             ],
-            temperature=0.5
+            temperature=0.35,
         )
         answer = completion.choices[0].message.content
     except Exception as e:
-        print(f"LLM Error: {e}")
-        answer = "I'm having trouble connecting to OpenAI."
+        print(f"[CHAT][ERROR] LLM call failed: {e}")
+        answer = (
+            "I had a problem connecting to the language model service.\n"
+            "However, I've attached a sample of the most relevant posts I found for your question."
+        )
 
     return {
         "answer": answer,
-        "sources": sources
+        "sources": sources,
     }
+
+
 # -------------------------------------------------------------------
 # Topic time-series (rubric b)
 # -------------------------------------------------------------------
@@ -817,6 +761,7 @@ def topic_time_series(
     start: Optional[str] = Query(None),
     end: Optional[str] = Query(None),
     subreddit: Optional[str] = Query(None),
+    
 ):
     """
     Time series of key topics/themes based on simple keyword groups.
@@ -896,12 +841,15 @@ def top_lists(
     subreddit: Optional[str] = Query(None),
     keyword: Optional[str] = Query(None),
     per_list: int = Query(10, ge=1, le=100),
+    author: Optional[str] = Query(None),
 ):
     """
     KPIs + top lists for current filter range:
     { total_posts, avg_per_day, growth_7d, top_subreddits, top_authors, top_domains }
     """
     df = _posts_df.copy()
+    if author:
+        df = df[df["author"].fillna("").str.lower() == author.lower()]
 
     if "created_utc" in df.columns:
         df["created_utc"] = ensure_datetime_series(df["created_utc"])
@@ -1161,7 +1109,7 @@ def network(
     domain_counts = df["domain"].value_counts()
 
     max_authors = 300
-    max_domains = 100
+    max_domains = 300
 
 
     top_authors = author_counts.head(max_authors).index.tolist()

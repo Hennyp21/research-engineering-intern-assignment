@@ -5,6 +5,7 @@ import FiltersBar from "../components/FiltersBar";
 import CommunityPie from "../components/CommunityPie";
 import ChatbotPanel from "../components/ChatbotPanel";
 import AISummaryBox from "../components/AISummaryBox";
+import PoliticalEventsTimeline from "../components/PoliticalEventsTimeline";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -14,6 +15,7 @@ export default function HomePage() {
     keyword: "",
     startDate: "",
     endDate: "",
+    author: "",
   });
 
   // Data States
@@ -36,6 +38,7 @@ export default function HomePage() {
     if (filters.endDate) params.set("end", filters.endDate);
     if (filters.subreddit) params.set("subreddit", filters.subreddit);
     if (filters.keyword) params.set("keyword", filters.keyword);
+    if (filters.author) params.set("author", filters.author);
     return params.toString();
   };
 
@@ -102,7 +105,8 @@ export default function HomePage() {
         start: filters.startDate || null,
         end: filters.endDate || null,
         subreddit: filters.subreddit || null,
-        keyword: filters.keyword || null
+        keyword: filters.keyword || null,
+        author: filters.author || null
       };
 
       const res = await fetch(`${API_URL}/api/summarize`, {
@@ -190,6 +194,9 @@ export default function HomePage() {
               loading={loadingTS}
               onExplainRange={handleExplainRange}
             />
+            
+            {/* NEW: Political Events Timeline */}
+            <PoliticalEventsTimeline />
             
             {/* Community Pie with a nice header */}
             <div className="space-y-3">

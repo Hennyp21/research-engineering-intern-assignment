@@ -1,1 +1,0 @@
-self.__REACT_LOADABLE_MANIFEST="{\"..\\\\components\\\\NetworkGraph.jsx -> react-force-graph-2d\":{\"id\":\"..\\\\components\\\\NetworkGraph.jsx -> react-force-graph-2d\",\"files\":[\"static/chunks/node_modules_react-force-graph-2d_dist_react-force-graph-2d_mjs.js\"]}}"
