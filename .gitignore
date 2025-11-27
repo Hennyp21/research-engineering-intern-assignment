@@ -36,8 +36,3 @@ dist/
 build/
 client/out/
 
-
-data/raw/
-data/processed/reddit_data*.jsonl
-
-data/processed/*.csv

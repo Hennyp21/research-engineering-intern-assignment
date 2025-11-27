@@ -1,0 +1,911 @@
+domain,count,score,reasons
+i.redd.it,1466,0,
+self.Liberal,617,0,
+self.Anarchism,568,0,
+self.socialism,439,0,
+youtube.com,279,0,
+reddit.com,214,0,
+self.Conservative,196,0,
+youtu.be,145,0,
+nytimes.com,145,3,Trusted Source (+3)
+v.redd.it,140,0,
+thehill.com,139,3,Trusted Source (+3)
+apnews.com,124,3,Trusted Source (+3)
+self.PoliticalDiscussion,116,0,
+theguardian.com,113,3,Trusted Source (+3)
+reuters.com,100,3,Trusted Source (+3)
+nbcnews.com,96,1,News Keyword (+1)
+politico.com,94,3,Trusted Source (+3)
+,89,0,
+cnn.com,88,1,News Keyword (+1)
+nypost.com,86,1,News Keyword (+1)
+breitbart.com,77,0,
+self.worldpolitics,77,0,
+foxnews.com,76,1,News Keyword (+1)
+townhall.com,66,0,
+newsweek.com,66,1,News Keyword (+1)
+dailywire.com,64,1,News Keyword (+1)
+redstate.com,59,0,
+ft.com,57,3,Trusted Source (+3)
+npr.org,55,3,Trusted Source (+3)
+cbsnews.com,53,1,News Keyword (+1)
+x.com,51,0,
+bbc.com,51,3,Trusted Source (+3)
+notthebee.com,49,0,
+wsj.com,47,3,Trusted Source (+3)
+washingtonpost.com,44,3,Trusted Source (+3)
+newrepublic.com,42,0,
+msnbc.com,39,1,News Keyword (+1)
+abcnews.go.com,38,1,News Keyword (+1)
+axios.com,38,0,
+b.l3n.co,37,0,
+usatoday.com,36,3,Trusted Source (+3)
+thedailybeast.com,36,1,News Keyword (+1)
+politico.eu,36,0,
+economist.com,36,3,Trusted Source (+3)
+babylonbee.com,35,0,
+bloomberg.com,35,3,Trusted Source (+3)
+pjmedia.com,34,1,News Keyword (+1)
+self.neoliberal,34,0,
+theatlantic.com,33,3,Trusted Source (+3)
+c.l3n.co,33,0,
+twitchy.com,32,0,
+cbc.ca,31,0,
+a.l3n.co,31,0,
+huffpost.com,30,1,News Keyword (+1)
+independent.co.uk,29,1,News Keyword (+1)
+cnbc.com,27,1,News Keyword (+1)
+salon.com,20,0,
+notesfrompoland.com,18,0,
+hotair.com,17,0,
+wired.com,17,3,Trusted Source (+3)
+nationalreview.com,16,0,
+dailymail.co.uk,16,1,News Keyword (+1)
+conservativeroof.com,16,0,
+currentaffairs.org,15,0,
+edition.cnn.com,15,1,News Keyword (+1)
+leftcom.org,15,0,
+ctvnews.ca,14,1,News Keyword (+1)
+motherjones.com,14,0,
+yahoo.com,14,0,
+vox.com,13,0,
+polskieradio.pl,13,0,
+blackrosefed.org,12,0,
+instagram.com,12,0,
+propublica.org,12,3,Trusted Source (+3)
+dw.com,12,0,
+commondreams.org,12,0,
+peoplesdispatch.org,11,0,
+thetimes.com,11,1,News Keyword (+1)
+congress.gov,11,3,Gov/Edu/Mil (+2); News Keyword (+1)
+fortune.com,11,3,Trusted Source (+3)
+latintimes.com,11,1,News Keyword (+1)
+open.substack.com,10,0,
+news.sky.com,10,1,News Keyword (+1)
+i.imgur.com,10,0,
+time.com,10,0,
+freedomnews.org.uk,9,-1,News Keyword (+1); Spam Keyword (-2)
+jacobin.com,9,0,
+thefederalist.com,9,0,
+justthenews.com,9,1,News Keyword (+1)
+whitehouse.gov,9,3,Gov/Edu/Mil (+2); News Keyword (+1)
+freebeacon.com,9,-2,Spam Keyword (-2)
+pbs.org,9,3,Trusted Source (+3)
+amp.cnn.com,9,1,News Keyword (+1)
+msn.com,9,0,
+dailykos.com,9,1,News Keyword (+1)
+self.Republican,9,0,
+thenation.com,9,0,
+theanarchistlibrary.org,8,0,
+archive.is,8,0,
+globalnews.ca,8,1,News Keyword (+1)
+businessinsider.com,8,1,News Keyword (+1)
+rollingstone.com,8,0,
+theverge.com,8,3,Trusted Source (+3)
+theglobeandmail.com,8,0,
+redgifs.com,8,0,
+bbc.co.uk,7,3,Trusted Source (+3)
+forbes.com,7,0,
+realclearpolitics.com,7,0,
+dailycaller.com,7,1,News Keyword (+1)
+washingtonexaminer.com,7,0,
+newsbusters.org,7,1,News Keyword (+1)
+americanprogress.org,7,0,
+latimes.com,7,1,News Keyword (+1)
+people.com,7,0,
+slate.com,7,0,
+military.com,7,0,
+techdirt.com,7,0,
+reason.com,7,0,
+foreignaffairs.com,7,0,
+voanews.com,7,1,News Keyword (+1)
+persuasion.community,7,0,
+medium.com,6,0,
+theintercept.com,6,0,
+doge.gov,6,3,Gov/Edu/Mil (+2); News Keyword (+1)
+unherd.com,6,0,
+frontpagemag.com,6,0,
+aol.com,6,0,
+nationalpost.com,6,1,News Keyword (+1)
+theconversation.com,6,0,
+wapo.st,6,0,
+rawstory.com,6,0,
+texastribune.org,6,1,News Keyword (+1)
+google.com,6,0,
+talkingpointsmemo.com,6,0,
+statnews.com,6,1,News Keyword (+1)
+404media.co,6,1,News Keyword (+1)
+lawandcrime.com,6,0,
+thedailyrenter.com,6,1,News Keyword (+1)
+arstechnica.com,6,3,Trusted Source (+3)
+english.kyodonews.net,6,1,News Keyword (+1)
+thestar.com,6,0,
+thebulwark.com,6,0,
+tempestmag.org,5,0,
+en.wikipedia.org,5,0,
+libcom.org,5,0,
+substack.com,5,0,
+washingtontimes.com,5,1,News Keyword (+1)
+the-independent.com,5,1,News Keyword (+1)
+theblaze.com,5,0,
+esstnews.com,5,1,News Keyword (+1)
+rumble.com,5,0,
+telegraph.co.uk,5,1,News Keyword (+1)
+news.bloomberglaw.com,5,1,News Keyword (+1)
+federalnewsnetwork.com,5,1,News Keyword (+1)
+cbpp.org,5,0,
+tiktok.com,5,0,
+projects.propublica.org,5,0,
+newyorker.com,5,3,Trusted Source (+3)
+euronews.com,5,1,News Keyword (+1)
+aljazeera.com,5,0,
+counterpunch.org,5,0,
+blackallianceforpeace.com,5,0,
+anarchistnews.org,4,1,News Keyword (+1)
+bsky.app,4,0,
+znetwork.org,4,0,
+jonathanturley.org,4,0,
+wusa9.com,4,0,
+gizmodo.com,4,0,
+newsmax.com,4,1,News Keyword (+1)
+timesofisrael.com,4,1,News Keyword (+1)
+forward.com,4,0,
+nbcnewyork.com,4,1,News Keyword (+1)
+themarysue.com,4,0,
+carnegieendowment.org,4,0,
+jfeed.com,4,0,
+m.youtube.com,4,0,
+c-span.org,4,0,
+nature.com,4,3,Trusted Source (+3)
+imgur.com,4,0,
+democracydocket.com,4,0,
+gothamist.com,4,0,
+brookings.edu,4,3,Gov/Edu/Mil (+2); News Keyword (+1)
+streamable.com,4,0,
+emdefesadocomunismo.com.br,4,0,
+thetab.com,4,0,
+working-mass.com,3,0,
+ktla.com,3,0,
+harpers.org,3,0,
+archive.ph,3,0,
+apple.news,3,1,News Keyword (+1)
+mrcfreespeechamerica.org,3,-2,Spam Keyword (-2)
+gazette.com,3,1,News Keyword (+1)
+genesiustimes.com,3,1,News Keyword (+1)
+amgreatness.com,3,0,
+westernjournal.com,3,1,News Keyword (+1)
+liveaction.org,3,0,
+comptroller.nyc.gov,3,3,Gov/Edu/Mil (+2); News Keyword (+1)
+torontosun.com,3,0,
+foxbusiness.com,3,1,News Keyword (+1)
+livemint.com,3,0,
+thewrap.com,3,0,
+democracynow.org,3,0,
+upi.com,3,0,
+semafor.com,3,0,
+truthsocial.com,3,0,
+ibtimes.com,3,1,News Keyword (+1)
+mediaite.com,3,1,News Keyword (+1)
+ground.news,3,1,News Keyword (+1)
+en.m.wikipedia.org,3,0,
+hungarianconservative.com,3,0,
+jsonline.com,3,0,
+podcasts.apple.com,3,0,
+democrats-appropriations.house.gov,3,3,Gov/Edu/Mil (+2); News Keyword (+1)
+peoplesworld.org,3,0,
+nymag.com,3,0,
+19thnews.org,3,1,News Keyword (+1)
+techcrunch.com,3,3,Trusted Source (+3)
+miaminewtimes.com,3,1,News Keyword (+1)
+vanityfair.com,3,0,
+usnews.com,3,1,News Keyword (+1)
+niskanencenter.org,3,0,
+lawfaremedia.org,3,1,News Keyword (+1)
+france24.com,3,0,
+prospect.org,3,0,
+warontherocks.com,3,0,
+govexec.com,3,1,News Keyword (+1)
+engelsbergideas.com,3,0,
+sfchronicle.com,3,1,News Keyword (+1)
+scmp.com,3,0,
+snopes.com,3,3,Trusted Source (+3)
+courthousenews.com,3,1,News Keyword (+1)
+wyofile.com,3,0,
+lgbtqnation.com,3,0,
+labornotes.org,3,0,
+mintpressnews.com,3,1,News Keyword (+1)
+mtlcounterinfo.org,2,0,
+southfloridareporter.com,2,1,News Keyword (+1)
+zinnedproject.org,2,0,
+libertarian-labyrinth.org,2,0,
+sub.media,2,1,News Keyword (+1)
+crimethinc.com,2,0,
+yesmagazine.org,2,0,
+oann.com,2,0,
+tomklingenstein.com,2,0,
+thespectator.com,2,0,
+issuesinsights.com,2,0,
+news18.com,2,1,News Keyword (+1)
+coloradosun.com,2,0,
+obamawhitehouse.archives.gov,2,3,Gov/Edu/Mil (+2); News Keyword (+1)
+spiked-online.com,2,0,
+city-journal.org,2,1,News Keyword (+1)
+weblo.info,2,0,
+imgflip.com,2,0,
+spectator.org,2,0,
+komonews.com,2,1,News Keyword (+1)
+dailyboulder.com,2,1,News Keyword (+1)
+trendingpoliticsnews.com,2,1,News Keyword (+1)
+carscoops.com,2,0,
+thebureau.news,2,1,News Keyword (+1)
+driveteslacanada.ca,2,0,
+m.economictimes.com,2,1,News Keyword (+1)
+livenowfox.com,2,1,News Keyword (+1)
+govtrack.live,2,1,News Keyword (+1)
+verity.news,2,1,News Keyword (+1)
+abc7ny.com,2,1,News Keyword (+1)
+state.gov,2,3,Gov/Edu/Mil (+2); News Keyword (+1)
+hoover.org,2,0,
+thecollegefix.com,2,0,
+defense.gov,2,3,Gov/Edu/Mil (+2); News Keyword (+1)
+rairfoundation.com,2,0,
+financialpost.com,2,1,News Keyword (+1)
+thefp.com,2,0,
+postandcourier.com,2,1,News Keyword (+1)
+post-gazette.com,2,1,News Keyword (+1)
+democrats.senate.gov,2,3,Gov/Edu/Mil (+2); News Keyword (+1)
+factcheck.org,2,0,
+deadline.com,2,0,
+about.usps.com,2,0,
+science.org,2,0,
+mobilize.us,2,0,
+hindustantimes.com,2,1,News Keyword (+1)
+swissinfo.ch,2,0,
+ajc.com,2,0,
+blog.meatmutts.com,2,0,
+inc.com,2,0,
+ted.com,2,0,
+psypost.org,2,1,News Keyword (+1)
+americanbar.org,2,0,
+ecancer.org,2,0,
+law.cornell.edu,2,3,Gov/Edu/Mil (+2); News Keyword (+1)
+me.com,2,0,
+forms.gle,2,0,
+americanthinker.com,2,0,
+threadreaderapp.com,2,0,
+hollywoodreporter.com,2,1,News Keyword (+1)
+delawareonline.com,2,0,
+advocate.com,2,0,
+hilltimes.com,2,1,News Keyword (+1)
+popular.info,2,0,
+iowacapitaldispatch.com,2,0,
+finance.yahoo.com,2,0,
+stripes.com,2,0,
+scientificamerican.com,2,3,Trusted Source (+3)
+futurism.com,2,0,
+ndtv.com,2,0,
+thenerdreich.com,2,0,
+self.democrats,2,0,
+docs.google.com,2,0,
+vogue.com,2,0,
+notus.org,2,0,
+electiontruthalliance.org,2,0,
+l.smartnews.com,2,1,News Keyword (+1)
+electrek.co,2,0,
+qz.com,2,0,
+calmatters.org,2,0,
+ogles.house.gov,2,3,Gov/Edu/Mil (+2); News Keyword (+1)
+newstimes.com,2,1,News Keyword (+1)
+astralcodexten.com,2,0,
+noahpinion.blog,2,0,
+trackingproject2025.com,2,0,
+siliconcontinent.com,2,0,
+taskandpurpose.com,2,0,
+english.hani.co.kr,2,0,
+asahi.com,2,0,
+slowboring.com,2,0,
+sciencedirect.com,2,0,
+pewresearch.org,2,3,Trusted Source (+3)
+trains.com,2,0,
+lrt.lt,2,0,
+on.ft.com,2,0,
+ny1.com,2,0,
+thecity.nyc,2,0,
+lailluminator.com,2,0,
+cato.org,2,0,
+foreignpolicy.com,2,3,Trusted Source (+3)
+heatmap.news,2,1,News Keyword (+1)
+csis.org,2,0,
+thepinknews.com,2,1,News Keyword (+1)
+sltrib.com,2,0,
+al.com,2,0,
+silive.com,2,0,
+abovethelaw.com,2,0,
+syracuse.com,2,0,
+chron.com,2,0,
+leftvoice.org,2,0,
+blog.pmpress.org,2,1,News Keyword (+1)
+thetricontinental.org,2,0,
+systemicdisorder.wordpress.com,2,1,News Keyword (+1)
+anti-imperialist.net,2,0,
+abcf.net,2,1,News Keyword (+1)
+workers.org,2,0,
+usufructcollective.wordpress.com,1,1,News Keyword (+1)
+neighborhoodanarchists.org,1,0,
+jps.library.utoronto.ca,1,0,
+diyconspiracy.net,1,0,
+antidotezine.com,1,0,
+deafleft.com,1,0,
+whitesupremacyculture.info,1,0,
+afsc.org,1,0,
+athens.indymedia.org,1,1,News Keyword (+1)
+static1.squarespace.com,1,0,
+incogkneegrowth.substack.com,1,0,
+50501movement.carrd.co,1,0,
+pinkpeacock.gay,1,0,
+taratw.com,1,0,
+spencersunshine.com,1,0,
+flintcitytimes.com,1,1,News Keyword (+1)
+tampabay.com,1,0,
+bureburebure.info,1,0,
+uprisingsupport.org,1,0,
+amplifierfilms.ca,1,0,
+newsnow.co.uk,1,1,News Keyword (+1)
+shado-mag.com,1,0,
+anfenglishmobile.com,1,0,
+adespotos.org,1,0,
+song.link,1,0,
+itsgoingdown.org,1,0,
+abolitionmedia.noblogs.org,1,1,News Keyword (+1)
+kenklippenstein.com,1,0,
+psychologytoday.com,1,0,
+solidarityzone.net,1,0,
+themoscowtimes.com,1,1,News Keyword (+1)
+politicalwire.com,1,0,
+muntjacmag.noblogs.org,1,0,
+sproutdistro.com,1,0,
+independentleft.ie,1,1,News Keyword (+1)
+siliconvalley.com,1,0,
+pastebin.com,1,0,
+tvtropes.org,1,0,
+vimeo.com,1,0,
+bianet.org,1,0,
+labrujulaverde.com,1,0,
+isr.press,1,1,News Keyword (+1)
+convergencemag.com,1,0,
+usa.anarchistlibraries.net,1,0,
+write.as,1,0,
+petapixel.com,1,0,
+ukdefencejournal.org.uk,1,1,News Keyword (+1)
+academia.edu,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+classy.org,1,0,
+angryeducationworkers.com,1,1,News Keyword (+1)
+thecradle.co,1,0,
+maia.crimew.gay,1,0,
+debatemebro.substack.com,1,0,
+distro.f-91w.club,1,0,
+jhunewsletter.com,1,1,News Keyword (+1)
+actupny.org,1,0,
+drive.proton.me,1,0,
+cia.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+steynonline.com,1,0,
+afn.net,1,0,
+news.antiwar.com,1,1,News Keyword (+1)
+globalbenefit.co.uk,1,0,
+marquette.edu,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+taxpolicycenter.org,1,0,
+ecfa.org,1,0,
+deepnewz.com,1,0,
+pubmed.ncbi.nlm.nih.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+lifenews.com,1,1,News Keyword (+1)
+dallasexpress.com,1,1,News Keyword (+1)
+johnkassnews.com,1,1,News Keyword (+1)
+mustreadalaska.com,1,0,
+thecentersquare.com,1,0,
+outkick.com,1,0,
+commentary.org,1,0,
+nordictimes.com,1,1,News Keyword (+1)
+newsnationnow.com,1,1,News Keyword (+1)
+spectator.co.uk,1,0,
+aztecreports.com,1,1,News Keyword (+1)
+wtap.com,1,0,
+sbs.com.au,1,0,
+thenewamerican.com,1,0,
+doge-tracker.com,1,0,
+victorhanson.com,1,0,
+fox19.com,1,1,News Keyword (+1)
+al-monitor.com,1,1,News Keyword (+1)
+tribune.com.pk,1,1,News Keyword (+1)
+lifezette.com,1,0,
+powerlineblog.com,1,0,
+investing.com,1,0,
+news.com.au,1,1,News Keyword (+1)
+nsnews.com,1,1,News Keyword (+1)
+2news.com,1,1,News Keyword (+1)
+buildremote.co,1,0,
+economictimes.indiatimes.com,1,1,News Keyword (+1)
+christianpost.com,1,1,News Keyword (+1)
+realclearinvestigations.com,1,0,
+racket.news,1,1,News Keyword (+1)
+wcnc.com,1,0,
+designnews.com,1,1,News Keyword (+1)
+harbingersdaily.com,1,1,News Keyword (+1)
+thesun.co.uk,1,0,
+san.com,1,0,
+mirror.co.uk,1,0,
+thelondoneconomic.com,1,0,
+creators.com,1,0,
+milwaukeeindependent.com,1,1,News Keyword (+1)
+rebelnews.com,1,1,News Keyword (+1)
+theepochtimes.com,1,1,News Keyword (+1)
+coloradonewsline.com,1,1,News Keyword (+1)
+acecomments.mu.nu,1,0,
+dailyfetched.com,1,1,News Keyword (+1)
+forexlive.com,1,0,
+9news.com.au,1,1,News Keyword (+1)
+newmarkettoday.ca,1,0,
+durhamregion.com,1,0,
+thesuburban.com,1,0,
+climatedepot.com,1,0,
+wset.com,1,0,
+jpost.com,1,1,News Keyword (+1)
+kafeneio.social,1,0,
+meforum.org,1,0,
+quillette.com,1,0,
+fox28spokane.com,1,1,News Keyword (+1)
+wbls.com,1,0,
+tabletmag.com,1,0,
+americanwirenews.com,1,1,News Keyword (+1)
+timesofindia.indiatimes.com,1,1,News Keyword (+1)
+projects.fivethirtyeight.com,1,0,
+fiercehealthcare.com,1,0,
+buddycarter.house.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+fec.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+therecord.media,1,1,News Keyword (+1)
+statista.com,1,0,
+koin.com,1,0,
+nixthenoms.com,1,0,
+imdb.com,1,0,
+standard.co.uk,1,0,
+cesarcardona.com,1,0,
+doctorswithoutborders.org,1,0,
+opentodebate.org,1,0,
+il.usembassy.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+insideprivacy.com,1,0,
+emptywheel.net,1,0,
+unilad.com,1,0,
+philosophersbeard.org,1,0,
+planetcritical.com,1,0,
+u24.gov.ua,1,1,News Keyword (+1)
+cookpolitical.com,1,0,
+search.app,1,0,
+cardinalnews.org,1,1,News Keyword (+1)
+oregonlive.com,1,0,
+8newsnow.com,1,1,News Keyword (+1)
+drempd.com,1,0,
+wcvb.com,1,0,
+staradvertiser.com,1,0,
+2paragraphs.com,1,0,
+fema.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+wegotthiscovered.com,1,0,
+environmental-action.org,1,0,
+thenevadaindependent.com,1,1,News Keyword (+1)
+news.northeastern.edu,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+leftfootforward.org,1,0,
+okmagazine.com,1,0,
+the-express.com,1,1,News Keyword (+1)
+texasattorneygeneral.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+democracy-dispatch.ghost.io,1,0,
+heraldtribune.com,1,1,News Keyword (+1)
+mediamatters.org,1,1,News Keyword (+1)
+lonestarleft.com,1,0,
+johnpavlovitz.com,1,0,
+georgiarecorder.com,1,0,
+self.KamalaHarris,1,0,
+dallasnews.com,1,1,News Keyword (+1)
+revolt.tv,1,0,
+voteclimatepac.org,1,0,
+theamericanconservative.com,1,0,
+reviewjournal.com,1,1,News Keyword (+1)
+temporary-url.com,1,0,
+grants.nih.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+openicpsr.org,1,0,
+health.state.mn.us,1,0,
+strawpoll.com,1,0,
+bizfeed.site,1,0,
+cmsny.org,1,0,
+senate.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+ice.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+republican.com,1,0,
+legiscan.com,1,0,
+twitter.com,1,0,
+wh.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+tesla.com,1,0,
+fincen.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+thecut.com,1,0,
+fal-api-audio-uploads.s3.amazonaws.com,1,-1,Long Domain Name (-1)
+evolutionsociety.org,1,0,
+patch.com,1,0,
+priceschool.usc.edu,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+foundationforfreedomonline.com,1,-2,Spam Keyword (-2)
+canada.com,1,0,
+usa.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+northwestseafood.com,1,0,
+channel8.com,1,0,
+variety.com,1,0,
+za.usembassy.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+credello.com,1,0,
+stalbertgazette.com,1,1,News Keyword (+1)
+kget.com,1,0,
+globaldisconnect.substack.com,1,0,
+gov.com,1,1,News Keyword (+1)
+merriam-webster.com,1,0,
+citizenportal.ai,1,0,
+fox5dc.com,1,1,News Keyword (+1)
+scag.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+eko.substack.com,1,0,
+fox5atlanta.com,1,1,News Keyword (+1)
+wonkette.com,1,0,
+fxtwitter.com,1,0,
+kcra.com,1,0,
+weheartcleelumroslyn.com,1,0,
+redcross.com,1,0,
+stopthewoke.com,1,0,
+heathercoxrichardson.substack.com,1,0,
+michiganross.umich.edu,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+m.facebook.com,1,0,
+senate.mo.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+patriotpost.us,1,1,News Keyword (+1)
+biblegateway.com,1,0,
+laborrelationsupdate.com,1,0,
+straitstimes.com,1,1,News Keyword (+1)
+pcmag.com,1,0,
+welcomestack.org,1,0,
+eurasiantimes.com,1,1,News Keyword (+1)
+civileats.com,1,0,
+baldwin.senate.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+buzzfeed.com,1,0,
+ossoff.senate.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+airtable.com,1,0,
+statedemocracydefenders.org,1,0,
+denvergazette.com,1,1,News Keyword (+1)
+columbiamissourian.com,1,0,
+heinrich.senate.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+robertreich.substack.com,1,0,
+bluevirginia.us,1,0,
+jayapal.house.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+systemicpeace.org,1,0,
+msmagazine.com,1,0,
+theeducatorsroom.com,1,1,News Keyword (+1)
+detroitnews.com,1,1,News Keyword (+1)
+uschamber.com,1,0,
+markey.senate.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+scholarships.com,1,0,
+ballotpedia.org,1,0,
+hamzakhan.me,1,0,
+baltimoresun.com,1,0,
+offmessage.net,1,0,
+techpolicy.press,1,1,News Keyword (+1)
+benzinga.com,1,0,
+rosen.senate.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+wfyi.org,1,0,
+rightforbucks.com,1,0,
+threads.net,1,0,
+wbur.org,1,0,
+alternet.org,1,0,
+wral.com,1,0,
+itep.org,1,0,
+riag.ri.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+mcsweeneys.net,1,0,
+energy.senate.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+raskin.house.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+delauro.house.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+nola.com,1,0,
+runforsomething.net,1,0,
+nsf-gov-resources.nsf.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+freep.com,1,-2,Spam Keyword (-2)
+obrag.org,1,0,
+democrats.org,1,0,
+linkedin.com,1,0,
+farmpolicynews.illinois.edu,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+gbnews.com,1,1,News Keyword (+1)
+nij.ojp.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+faa.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+newsbreak.com,1,1,News Keyword (+1)
+crooksandliars.com,1,0,
+25and.me,1,0,
+tspb.texas.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+themercury.com,1,0,
+news.va.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+desmoinesregister.com,1,0,
+berlingske.dk,1,0,
+dailymontanan.com,1,1,News Keyword (+1)
+wnycstudios.org,1,0,
+kob.com,1,0,
+ctmirror.org,1,0,
+ed.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+theodoreira.substack.com,1,0,
+amp.star-telegram.com,1,0,
+atlanticcouncil.org,1,0,
+northpennnow.com,1,0,
+democratsabroad.org,1,0,
+fox17.com,1,1,News Keyword (+1)
+ctnewsjunkie.com,1,1,News Keyword (+1)
+electionbettingodds.com,1,0,
+indepthnh.org,1,0,
+weforum.org,1,0,
+en.yna.co.kr,1,0,
+josephheath.substack.com,1,0,
+peoplespolicyproject.org,1,0,
+thebaltimorebanner.com,1,0,
+thenewatlantis.com,1,0,
+brusselstimes.com,1,1,News Keyword (+1)
+aei.org,1,0,
+agweb.com,1,0,
+ifw-kiel.de,1,0,
+m.jpost.com,1,1,News Keyword (+1)
+inforum.com,1,0,
+wavellroom.com,1,0,
+heraldscotland.com,1,1,News Keyword (+1)
+shugerblogcom.wordpress.com,1,1,News Keyword (+1)
+focustaiwan.tw,1,0,
+cyberintel.substack.com,1,0,
+metro.co.uk,1,0,
+jakartaglobe.id,1,0,
+findingequilibriumfuturehighered.substack.com,1,-1,Long Domain Name (-1)
+thedispatch.com,1,0,
+paul.senate.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+news.vocofm.com,1,1,News Keyword (+1)
+davidcoletto.substack.com,1,0,
+inews.co.uk,1,1,News Keyword (+1)
+newstatesman.com,1,1,News Keyword (+1)
+stern.de,1,0,
+whanchoi.people.uic.edu,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+al24news.com,1,1,News Keyword (+1)
+imightbewrong.org,1,0,
+doi.org,1,0,
+chosun.com,1,0,
+sourcenm.com,1,0,
+brasildefatorj.com.br,1,0,
+bringcostsdown.org,1,0,
+news.gallup.com,1,1,News Keyword (+1)
+unhcr.org,1,0,
+umnews.org,1,1,News Keyword (+1)
+bridgewater.com,1,0,
+indiatoday.in,1,0,
+spiegel.de,1,0,
+lrb.co.uk,1,0,
+kiplinger.com,1,0,
+lbpost.com,1,1,News Keyword (+1)
+frontiersin.org,1,0,
+courier-journal.com,1,1,News Keyword (+1)
+thewalrus.ca,1,0,
+hs.fi,1,0,
+laist.com,1,0,
+ap.org,1,0,
+ec.europa.eu,1,0,
+cambridgeday.com,1,0,
+maximum-progress.com,1,0,
+ktvb.com,1,0,
+standupforscience2025.org,1,0,
+m.koreaherald.com,1,1,News Keyword (+1)
+dispatch.com,1,0,
+syriacpatriarchate.org,1,0,
+thetravel.com,1,0,
+nationalnewswatch.com,1,1,News Keyword (+1)
+liberalcurrents.com,1,0,
+thediplomat.com,1,0,
+landtagswahlen.li,1,0,
+grist.org,1,0,
+railjournal.com,1,1,News Keyword (+1)
+infinitescroll.us,1,0,
+them.us,1,0,
+insidestory.org.au,1,0,
+muse.jhu.edu,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+whyy.org,1,0,
+nationalobserver.com,1,1,News Keyword (+1)
+parkingreform.org,1,0,
+snhr.org,1,0,
+financialexpress.com,1,1,News Keyword (+1)
+nomenugget.com,1,0,
+cogitations.co,1,0,
+floridaphoenix.com,1,0,
+newarab.com,1,0,
+scholars-stage.org,1,0,
+icirnigeria.org,1,0,
+shop.hololivepro.com,1,0,
+rfi.fr,1,0,
+indianexpress.com,1,1,News Keyword (+1)
+amny.com,1,0,
+pv-magazine-usa.com,1,0,
+denverpost.com,1,1,News Keyword (+1)
+brennancenter.org,1,0,
+barrons.com,1,0,
+onlinelibrary.wiley.com,1,0,
+tracingwoodgrains.com,1,0,
+goldenstatements.substack.com,1,0,
+boundless.com,1,0,
+sfstandard.com,1,0,
+statuskuo.substack.com,1,0,
+sooleader.com,1,0,
+kyivindependent.com,1,1,News Keyword (+1)
+middleeastmonitor.com,1,1,News Keyword (+1)
+kaine.senate.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+ca.finance.yahoo.com,1,0,
+justice.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+wbznewsradio.iheart.com,1,1,News Keyword (+1)
+19fortyfive.com,1,0,
+edconway.substack.com,1,0,
+thehindu.com,1,0,
+disconnect.blog,1,0,
+pravda.com.ua,1,0,
+thelogic.co,1,0,
+archive.today,1,0,
+asteriskmag.com,1,0,
+ewn.co.za,1,0,
+today.yougov.com,1,1,News Keyword (+1)
+japantimes.co.jp,1,1,News Keyword (+1)
+house.mo.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+heritage.org,1,0,
+northjersey.com,1,0,
+bostonglobe.com,1,0,
+alabamareflector.com,1,0,
+politifact.com,1,0,
+news10.com,1,1,News Keyword (+1)
+wtkr.com,1,0,
+sierraclub.org,1,0,
+nebraska.tv,1,0,
+wlwt.com,1,0,
+esquire.com,1,0,
+whowhatwhy.org,1,0,
+tcpalm.com,1,0,
+chicagotribune.com,1,1,News Keyword (+1)
+seattletimes.com,1,1,News Keyword (+1)
+13abc.com,1,1,News Keyword (+1)
+kdvr.com,1,0,
+wmar2news.com,1,1,News Keyword (+1)
+newsobserver.com,1,1,News Keyword (+1)
+dailyinterlake.com,1,1,News Keyword (+1)
+kentuckylantern.com,1,0,
+abc7.com,1,1,News Keyword (+1)
+11alive.com,1,0,
+ksla.com,1,0,
+kansasreflector.com,1,0,
+helenair.com,1,0,
+aclu.org,1,0,
+blog.ucsusa.org,1,0,
+insidehighered.com,1,0,
+wsbtv.com,1,0,
+fetterman.senate.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+nysun.com,1,0,
+inquirer.com,1,0,
+fastcompany.com,1,0,
+azag.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+self.politics,1,0,
+mercurynews.com,1,1,News Keyword (+1)
+fox5ny.com,1,1,News Keyword (+1)
+nationalinterest.org,1,0,
+utahnewsdispatch.com,1,1,News Keyword (+1)
+woodtv.com,1,0,
+idahostatesman.com,1,0,
+ffrf.org,1,0,
+gov.ca.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+meduza.io,1,1,News Keyword (+1)
+opb.org,1,0,
+fox59.com,1,1,News Keyword (+1)
+missouriindependent.com,1,1,News Keyword (+1)
+news.usni.org,1,1,News Keyword (+1)
+civilbeat.org,1,0,
+inthesetimes.com,1,1,News Keyword (+1)
+thebulletin.org,1,0,
+outdoorlife.com,1,0,
+marketplace.org,1,0,
+dei.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+ijr.com,1,0,
+cdc.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+acus.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+texasmonthly.com,1,0,
+guampdn.com,1,0,
+ohiocapitaljournal.com,1,1,News Keyword (+1)
+stltoday.com,1,0,
+wwno.org,1,0,
+amp.scmp.com,1,0,
+jewishinsider.com,1,1,News Keyword (+1)
+chalkbeat.org,1,0,
+keloland.com,1,0,
+cleveland.com,1,0,
+epa.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+nbcbayarea.com,1,1,News Keyword (+1)
+oklegislature.gov,1,3,Gov/Edu/Mil (+2); News Keyword (+1)
+abc.net.au,1,1,News Keyword (+1)
+crfb.org,1,0,
+sfgate.com,1,0,
+wcpo.com,1,0,
+pasquines.us,1,0,
+ember-red.com,1,0,
+redantcollective.org,1,0,
+leftistfeminista.tumblr.com,1,0,
+restofworld.org,1,0,
+unexaminedglitch.com,1,0,
+prolespod.libsyn.com,1,0,
+hamn.nu,1,0,
+ourhistory.substack.com,1,0,
+menasolidaritynetwork.com,1,0,
+akpress.org,1,1,News Keyword (+1)
+removepaywall.com,1,0,
+i24news.tv,1,1,News Keyword (+1)
+freealexstokes.com,1,-2,Spam Keyword (-2)
+industrialworker.org,1,0,
+transcribingpast.blogspot.com,1,0,
+marxandphilosophy.org.uk,1,0,
+idcommunism.com,1,0,
+open.spotify.com,1,0,
+ahmedelhennawy.substack.com,1,0,
+struggle-la-lucha.org,1,0,
+dropsitenews.com,1,1,News Keyword (+1)
+disclose.tv,1,0,
+brasildefato.com.br,1,0,
+poynter.org,1,0,
+hammerandhope.org,1,0,
+popularresistance.org,1,0,
+angryworkers.org,1,0,
+tribuneindia.com,1,1,News Keyword (+1)
+socialistchina.org,1,0,
+inequality.org,1,0,
+therednation.org,1,0,
+futurehistories-international.com,1,0,
+betterdwelling.com,1,0,
+dsausa.org,1,0,
+marxist.com,1,0,
+directory.libsyn.com,1,0,
+teenvogue.com,1,0,
+mltoday.com,1,0,
+thelefthook.substack.com,1,0,
+revsoc21.uk,1,0,
+partisanmagazine.org,1,0,
+chicago.suntimes.com,1,1,News Keyword (+1)
+radiohc.cu,1,0,
+irishtimes.com,1,1,News Keyword (+1)
+m.independent.ie,1,1,News Keyword (+1)
+thegrayzone.com,1,0,
+covertactionmagazine.com,1,0,
+documents.un.org,1,0,
+facebook.com,1,0,
+thenextrecession.wordpress.com,1,1,News Keyword (+1)
+rebelnews.ie,1,1,News Keyword (+1)
+yo252yo.wordpress.com,1,1,News Keyword (+1)
+content.blubrry.com,1,0,
+en.granma.cu,1,0,
+redflag.org.au,1,0,
+jakewinkle.blogspot.com,1,0,
+tribunemag.co.uk,1,1,News Keyword (+1)
+newleftreview.org,1,0,
+globalsouthcolloquy.com,1,0,
+cosmonautmag.com,1,0,
+theleftberlin.com,1,0,
+news.cgtn.com,1,1,News Keyword (+1)
+kpopconspiracies.quora.com,1,0,
+miro.medium.com,1,0,
+en.m.wiktionary.org,1,0,
+culturadealgibeira.com,1,0,
+on.soundcloud.com,1,0,
