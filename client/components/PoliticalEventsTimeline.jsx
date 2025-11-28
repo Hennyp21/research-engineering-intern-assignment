@@ -74,15 +74,24 @@ const PoliticalEventsTimeline = () => {
         <span className="text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded">Aug 2024 - Feb 2025</span>
       </div>
       
-      {/* Timeline Container with Horizontal Scroll */}
-      <div className="relative overflow-x-auto pb-2">
-        <div className="flex gap-4 min-w-max">
+      {/* Timeline Container with Hidden Scrollbar */}
+      <div 
+        className="relative overflow-x-auto pb-4 no-scrollbar" 
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        <div className="flex gap-4 min-w-max px-2">
           {events.map((event, idx) => (
             <div key={idx} className="flex flex-col items-center min-w-[140px]">
               
+              {/* Connector Line (except for last item) */}
+              {idx < events.length - 1 && (
+                <div className="absolute top-[2.5rem] w-[140px] h-[2px] bg-slate-200 -z-10" 
+                     style={{ left: `calc(${idx * 156}px + 90px)` }}></div>
+              )}
+
               {/* Event Card */}
-              <div className="group relative">
-                <div className={`${event.color} w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-lg transform transition-transform duration-200 group-hover:scale-110 mb-3`}>
+              <div className="group relative z-10">
+                <div className={`${event.color} w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-lg transform transition-transform duration-200 group-hover:scale-110 mb-3 border-4 border-white`}>
                   {event.icon}
                 </div>
 
@@ -94,7 +103,7 @@ const PoliticalEventsTimeline = () => {
                   </div>
 
                   {/* Hover Card */}
-                  <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-200 absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 z-10">
+                  <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-200 absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 z-20">
                     <div className="bg-slate-900 text-white text-xs rounded-lg py-2 px-3 whitespace-nowrap shadow-xl">
                       {event.description}
                       <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
@@ -109,7 +118,7 @@ const PoliticalEventsTimeline = () => {
       </div>
       
       {/* Legend */}
-      <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap gap-3 text-xs">
+      <div className="mt-2 pt-4 border-t border-slate-100 flex flex-wrap gap-3 text-xs">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-blue-500"></div>
           <span className="text-slate-600">Campaign Events</span>
